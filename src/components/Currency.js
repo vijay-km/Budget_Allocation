@@ -1,30 +1,37 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import { AppContext } from "../context/AppContext";
 
 const Currency = () => {
     // const { currency } = useContext(AppContext);
-    const {dispatch} = useContext(AppContext);
+    const { dispatch } = useContext(AppContext);
     // console.log(dispatch);
-    const [newCurrency, setCurrency] = useState('£ Pound')
+    const [newCurrency, setCurrency] = useState('£')
 
-    const UpdateCurrency = async(event) => {
-        setCurrency(event.target.value);
+    useEffect(() => {
+        // Side effect code here
+        // This will run whenever `newCurrency` changes
         dispatch({
             type: 'CHG_CURRENCY',
             payload: newCurrency,
         });
+    }, [newCurrency, dispatch]); // Include `dispatch` as a dependency
+    // Specify `newCurrency` as a dependency to trigger the effect when it changes
 
-    }
+    const UpdateCurrency = (event) => {
+        const newCurrencyValue = event.target.value;
+        setCurrency(newCurrencyValue);
+    };
     return (
         <div className="alert alert-primary">
             <span>Currency</span>
-            <select className="custome-select" value= {newCurrency} onChange={UpdateCurrency}>
-                <option defaultValue value='£' name='Pound'>£ Pound</option>
+            <select className="custom-select" value={newCurrency} onChange={UpdateCurrency}>
+                <option value='£' name='Pound'>£ Pound</option>
                 <option value="$" name='Dollar'>$ Dollar</option>
                 <option value="€" name='Euro'>€ Euro</option>
                 <option value="₹" name='Rupee'>₹ Rupee</option>
             </select>
+
         </div>
     );
 };

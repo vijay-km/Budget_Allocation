@@ -7,7 +7,8 @@ const Budget = () => {
     const [newBudget, setNewBudget] = useState(budget);
 
     const handleBudgetChange = (event) => {
-        setNewBudget(event.target.value);
+        const newBudgetValue = event.target.value;
+        setNewBudget(newBudgetValue);
         dispatch({
             type: 'SET_BUDGET',
             payload: newBudget,
