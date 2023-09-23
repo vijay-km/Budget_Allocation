@@ -105,6 +105,7 @@ export const AppProvider = (props) => {
         }, 0);
         remaining = state.budget - totalExpenses;
     }
+    
 
     return (
         <AppContext.Provider
